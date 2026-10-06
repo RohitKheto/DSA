@@ -1,41 +1,42 @@
 class Solution {
     public String minWindow(String s, String t) {
-        int low = 0, start = 0, end = 0, uCount = 0, length = Integer.MAX_VALUE;
-        Map<Character,Integer> tMap = new HashMap<>();
-        Map<Character,Integer> sMap = new HashMap<>();
+        if (t.length() > s.length()) return "";
 
-        for(char ch : t.toCharArray()) {
-            tMap.put(ch,tMap.getOrDefault(ch,0)+1);
+        int[] freq = new int[128];
+        for (char c : t.toCharArray()) {
+            freq[c]++;
         }
 
-        int unique = tMap.size();
+        int left = 0;
+        int required = t.length();
+        int minLen = Integer.MAX_VALUE;
+        int start = 0;
 
-        for(int high = 0; high < s.length(); high++) {
-            char c = s.charAt(high);
-            int sCount = sMap.getOrDefault(c,0)+1;
-            int tCount = tMap.getOrDefault(c,0);
-            sMap.put(c,sCount);
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
 
-            if(sCount == tCount) uCount++;
+            if (freq[c] > 0) {
+                required--;
+            }
 
-        System.out.println(uCount);
+            freq[c]--;
 
-            while(uCount == unique) {
-                if((high - low + 1) < length){
-                    start = low;
-                    end = high + 1;
-                    length = high - low + 1;
+            while (required == 0) {
+                int windowLen = right - left + 1;
+
+                if (windowLen < minLen) {
+                    minLen = windowLen;
+                    start = left;
                 }
-                c = s.charAt(low);
-                sCount = sMap.get(c) - 1;
-                tCount = tMap.getOrDefault(c,0);
-                sMap.put(c,sCount);
-                if(sCount < tCount) uCount--;
-                low++;
-                System.out.println(start + " " + end);
+
+                char leftChar = s.charAt(left++);
+                freq[leftChar]++;
+
+                if (freq[leftChar] > 0) required++;
+
             }
         }
 
-        return s.substring(start,end);
+        return (minLen == Integer.MAX_VALUE) ? "" : s.substring(start, start + minLen);
     }
 }
