@@ -7,6 +7,7 @@ class Solution {
 
             count = (prev + 1 == curr) ? (count + 1) : 1;
             maxLen = Math.max(maxLen,count);
+            if(maxLen == 26) break;
         }
         return maxLen;
     }
