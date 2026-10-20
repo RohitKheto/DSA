@@ -5,7 +5,7 @@ class Solution {
         int[] res = new int[n];
 
         for(int i = n - 2; i >= 0; i--) {
-            while(!stack.isEmpty() && stack.peek() < nums[i]) {
+            while(!stack.isEmpty() && stack.peek() <= nums[i]) {
                 stack.pop();
             }
             stack.push(nums[i]);
