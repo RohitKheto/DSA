@@ -24,8 +24,7 @@ class Solution {
         for(int i = 1; i < k && tail != null; i++) {
             tail = tail.next;
         }
-        if(tail == null)
-            return head;
+        if(tail == null) return head;
         ListNode h1 = reverseKGroup(tail.next,k);
         tail.next = null;
         return reverseList(head,h1);
