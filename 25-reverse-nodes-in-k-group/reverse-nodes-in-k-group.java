@@ -21,10 +21,8 @@ class Solution {
 
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode tail = head;
-        int i = 1;
-        while(i < k && tail != null) {
+        for(int i = 1; i < k && tail != null; i++) {
             tail = tail.next;
-            i++;
         }
         if(tail == null)
             return head;
