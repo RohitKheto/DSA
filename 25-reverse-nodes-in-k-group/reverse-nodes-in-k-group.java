@@ -9,8 +9,7 @@
  * }
  */
 class Solution {
-    private ListNode reverseList(ListNode curr) {
-        ListNode prev = null;
+    private ListNode reverseList(ListNode curr, ListNode prev) {
         while(curr != null) {
             ListNode temp = curr.next;
             curr.next = prev;
@@ -30,12 +29,11 @@ class Solution {
             tail = tail.next;
             i++;
         }
-        if(i <= k)
-            return newHead;
+
+        if(i <= k) return newHead;
+
         ListNode h1 = reverseKGroup(tail,k);
         temp.next = null;
-        ListNode h = reverseList(newHead);
-        newHead.next = h1;
-        return h;
+        return reverseList(newHead,h1);
     }
 }
