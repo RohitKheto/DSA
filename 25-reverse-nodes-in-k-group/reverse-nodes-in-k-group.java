@@ -20,20 +20,16 @@ class Solution {
     }
 
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode newHead = head;
         ListNode tail = head;
-        ListNode temp = null;
         int i = 1;
-        while(i <= k && tail != null) {
-            temp = tail;
+        while(i < k && tail != null) {
             tail = tail.next;
             i++;
         }
-
-        if(i <= k) return newHead;
-
-        ListNode h1 = reverseKGroup(tail,k);
-        temp.next = null;
-        return reverseList(newHead,h1);
+        if(i < k || tail == null)
+            return head;
+        ListNode h1 = reverseKGroup(tail.next,k);
+        tail.next = null;
+        return reverseList(head,h1);
     }
 }
