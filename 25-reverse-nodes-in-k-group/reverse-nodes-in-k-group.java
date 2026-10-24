@@ -26,7 +26,7 @@ class Solution {
             tail = tail.next;
             i++;
         }
-        if(i < k || tail == null)
+        if(tail == null)
             return head;
         ListNode h1 = reverseKGroup(tail.next,k);
         tail.next = null;
