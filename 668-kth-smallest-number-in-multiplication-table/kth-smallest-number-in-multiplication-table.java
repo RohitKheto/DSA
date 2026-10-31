@@ -1,23 +1,40 @@
 class Solution {
-    private boolean isPossible(int m,int n, int k, int maxNumber) { //TC = O(m)
-        int count = 0;
-        for(int i = 1; i <= m; i++) {
-            count += (maxNumber/i < n) ? maxNumber/i : n;
+
+    private boolean isPossible(int m, int n, int k, int x) {
+        long count = 0;
+
+        for (int i = 1; i <= Math.min(m, x); i++) {
+            count += Math.min(x / i, n);
+            if (count >= k) {
+                return true;
+            }
         }
-        return (count >= k);
+
+        return false;
     }
+
     public int findKthNumber(int m, int n, int k) {
-        int l = 1, h = m * n;
-        int res = -1;
-        while(l <= h) { //TC = O(log(m*n))
-            int mid = (l + h)/2;
-            if(isPossible(m,n,k,mid)) {
-                res = mid;
-                h = mid - 1;
+
+        // Iterate over the smaller dimension
+        if (m > n) {
+            int temp = m;
+            m = n;
+            n = temp;
+        }
+
+        int l = 1;
+        int h = k;  // Optimized upper bound
+
+        while (l < h) {
+            int mid = l + (h - l) / 2;
+
+            if (isPossible(m, n, k, mid)) {
+                h = mid;
             } else {
                 l = mid + 1;
             }
         }
-        return res;
+
+        return l;
     }
 }
