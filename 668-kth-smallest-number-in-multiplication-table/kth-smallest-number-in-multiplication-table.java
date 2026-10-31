@@ -1,8 +1,8 @@
 class Solution {
-    private boolean isPossible(int m,int n, int k, int maxNumber) {
+    private boolean isPossible(int m,int n, int k, int maxNumber) { //TC = O(m)
         int count = 0;
         for(int i = 1; i <= m; i++) {
-            count += Math.min(maxNumber/i,n);
+            count += (maxNumber/i < n) ? maxNumber/i : n;
         }
         return (count >= k);
     }
