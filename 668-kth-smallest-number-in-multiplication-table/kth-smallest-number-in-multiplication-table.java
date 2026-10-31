@@ -2,8 +2,9 @@ class Solution {
 
     private boolean isPossible(int m, int n, int k, int x) {
         long count = 0;
+        int max = Math.min(m, x);
 
-        for (int i = 1; i <= Math.min(m, x); i++) {
+        for (int i = 1; i <= max; i++) {
             count += Math.min(x / i, n);
             if (count >= k) {
                 return true;
